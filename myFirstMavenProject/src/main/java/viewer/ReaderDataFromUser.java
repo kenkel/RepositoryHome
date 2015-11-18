@@ -3,6 +3,7 @@ package viewer;
 
 import java.util.Scanner;
 import controllers.NoteBook;
+import exceptions.ContactAddProblem;
 import modelEntityes.Contact;
 import modelEntityes.Controls;
 
@@ -24,7 +25,13 @@ public class ReaderDataFromUser {
 			String comandfromUser = readData();
 			
 			if(Controls.add.getComand().equals(comandfromUser)){
+				try{
 				notebook.addContact(readContactToAdd());
+				}catch(ContactAddProblem e){
+					e.showProblemMessage();
+					return;
+					// logging exeption
+				}
 				ViewMessagesSystem.ADDED_SUCESFULLY.printMessage();
 				
 			}else
@@ -74,7 +81,7 @@ public class ReaderDataFromUser {
 			ViewMessagesSystem.STARTUP_MESSAGE.printMessage();
 		    ViewNoteBookData.viewControls();
 		}
-	private Contact readContactToAdd (){  // working
+	private Contact readContactToAdd () throws ContactAddProblem{  // working
 		ViewMessagesSystem.PLEASE_ADD_NAME.printMessage();
 		String name = readData();
 		ViewMessagesSystem.PLEASE_ADD_NUMBER.printMessage();
