@@ -14,11 +14,6 @@ public class Main {
 	
 	
 
-	public static void main(String[] args) {
-	
-		ReaderDataFromUser menu = new ReaderDataFromUser();
-		menu.runMenu();
-	}
 
 	public static String readMessage(){
 		final Scanner scanner = new Scanner(System.in);

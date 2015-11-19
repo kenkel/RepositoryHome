@@ -1,5 +1,6 @@
 package modelEntityes;
 
+import exceptions.ContactAddProblem;
 import viewer.ViewMessagesSystem;
 
 
@@ -12,12 +13,13 @@ public class Contact {
 	private String number;
 
 	
-	public Contact(String name,String number){
+	public Contact(final String name,final String number) throws ContactAddProblem{
 		if(dataIsCorrect(number,name)){
 		this.name = name;
 		this.number = number;
 		}else{
-			ViewMessagesSystem.IF_INCORRECT.printMessage();
+			//ViewMessagesSystem.IF_INCORRECT.printMessage();
+			throw new ContactAddProblem();
 		}
 	}
 	

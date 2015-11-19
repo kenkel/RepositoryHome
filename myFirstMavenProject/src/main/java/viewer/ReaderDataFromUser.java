@@ -8,7 +8,7 @@ import modelEntityes.Contact;
 import modelEntityes.Controls;
 
 public class ReaderDataFromUser {
-
+	private final Scanner scanner = new Scanner(System.in);
 	private boolean MenuOff = false;
 	private final NoteBook notebook = new NoteBook();
 	
@@ -27,12 +27,15 @@ public class ReaderDataFromUser {
 			if(Controls.add.getComand().equals(comandfromUser)){
 				try{
 				notebook.addContact(readContactToAdd());
+				ViewMessagesSystem.ADDED_SUCESFULLY.printMessage();
 				}catch(ContactAddProblem e){
 					e.showProblemMessage();
-					return;
+					System.out.println("in catch block!!!");
+					
+					// what next ???
 					// logging exeption
 				}
-				ViewMessagesSystem.ADDED_SUCESFULLY.printMessage();
+			
 				
 			}else
 			if(Controls.delete.getComand().equals(comandfromUser)){
@@ -67,15 +70,17 @@ public class ReaderDataFromUser {
 		
 	}
 	private String readData() {
-		final Scanner scanner = new Scanner(System.in);
-		String result ;
+		 
+		/*String result;
 		while(scanner.hasNext()){
 			result = scanner.next();
 			return result;
-		}
-		scanner.close(); // is it correct ?? close scanner here...
-		return "";
+		}*/
+		String res = scanner.next();
+	//	scanner.close(); // is it correct ? Close scanner here...
+		return res;
 	}
+	
 	private void startUpMenuMessage () {
 			ViewMessagesSystem.SYSTEM_SEPARTOR.printMessage();
 			ViewMessagesSystem.STARTUP_MESSAGE.printMessage();

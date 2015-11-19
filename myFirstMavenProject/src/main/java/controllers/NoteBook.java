@@ -1,6 +1,8 @@
 package controllers;
 
 import java.util.ArrayList;
+
+import exceptions.ContactAddProblem;
 import viewer.ViewNoteBookData;
 import modelEntityes.Contact;
 import viewer.ReaderDataFromUser;
@@ -11,10 +13,11 @@ public class NoteBook {
 	
 	private final  ArrayList<Contact> contactsList = new ArrayList<Contact>();
 	
-	public static void main(String[]args) {
+	public static void main(String[]args) throws ContactAddProblem {
 	
 		ReaderDataFromUser dataFromUser = new ReaderDataFromUser();
-		dataFromUser.runMenu();
+		dataFromUser.runMenu();;
+		
 		
 	}
 	public void addContact (final Contact contact) {  // working

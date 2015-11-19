@@ -13,7 +13,8 @@ public class NoteBook {
 	public static void main(String[]args) {
 	
 		ReaderDataFromUser dataFromUser = new ReaderDataFromUser();
-		dataFromUser.runMenu();
+		dataFromUser.readData();
+		dataFromUser.readContactToAdd();
 		
 	}
 	public void addContact (final Contact contact) {  // working
