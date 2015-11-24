@@ -1,6 +1,6 @@
 package exceptions;
 
-public class ContactAddProblem extends NoteBookExceptions {
+public class ContactAddProblem extends AbstractNoteBookExceptions {
 	private final String contactProblem = "Contact set problem , please chek data ";
 	
 	public void showProblemMessage(){

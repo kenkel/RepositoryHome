@@ -3,9 +3,10 @@ package controllers;
 import java.util.ArrayList;
 
 import exceptions.ContactAddProblem;
+import exceptions.ContactDeleteProblem;
 import viewer.ViewNoteBookData;
 import modelEntityes.Contact;
-import viewer.ReaderDataFromUser;
+import viewer.Menu;
 import viewer.ViewMessagesSystem;
 
 
@@ -15,27 +16,27 @@ public class NoteBook {
 	
 	public static void main(String[]args) throws ContactAddProblem {
 	
-		ReaderDataFromUser dataFromUser = new ReaderDataFromUser();
+		Menu dataFromUser = new Menu();
 		dataFromUser.runMenu();;
 		
 		
 	}
-	public void addContact (final Contact contact) {  // working
+	public void addContact (final Contact contact) throws ContactAddProblem {  // working
 		if(contact!=null){
 		contactsList.add(contact);
 		}else{
-			ViewMessagesSystem.IF_INCORRECT.printMessage(); // throw new ContactCantAddedException
+			throw new ContactAddProblem();
 		}
 	}
-	public void deleteContact( final String nameContact)  {
+	public void deleteContact( final String nameContact) throws ContactDeleteProblem  {
 		 if(nameContact!=null){
 			 for(int i = 0;i<contactsList.size();i++){
 				 if(nameContact.equals(contactsList.get(i).getName())){
 					 contactsList.remove(i);
+				 }else{
+					 throw new ContactDeleteProblem();
 				 }
 			 }
-		 }else{
-			 ViewMessagesSystem.DELETED_CRASHED.printMessage(); //throw new ContactIsNotExistException 
 		 }
 	}
 	public void editContact(final String nameContact,final String newNAme,final String newNumber){

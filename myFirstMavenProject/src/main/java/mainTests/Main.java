@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 import controllers.NoteBook;
 import modelEntityes.Contact;
-import viewer.ReaderDataFromUser;
+import viewer.Menu;
 import viewer.ViewMessagesSystem;
 
 public class Main {
@@ -26,7 +26,7 @@ public class Main {
 		return "";
 	}
 	public static void deleteContact() {
-	ViewMessagesSystem.DELETE_NUMBER.printMessage();
+	ViewMessagesSystem.DELETE_CONTACT.printMessage();
 	String nameToDelete = readMessage();
 	for (int i = 0;i<contactsList.size();i++){
 		if(nameToDelete.equals(contactsList.get(i).getName())){

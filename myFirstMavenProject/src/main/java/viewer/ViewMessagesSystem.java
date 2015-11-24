@@ -14,7 +14,7 @@ public enum ViewMessagesSystem {
      ADDED_SUCESFULLY("Contact added sucesfully "),
      PLEASE_ADD_NAME("Please enter the name :"),
      PLEASE_ADD_NUMBER("Please enter the number :"),
-     DELETE_NUMBER("Please enter the name to delete :"),
+     DELETE_CONTACT("Please enter the name to delete :"),
      DELETED_SUCESFULLY("Contact deleted sucesfully "),
      SYSTEM_SEPARTOR("-------------------"),
      GOODBYE("Good bye!");
