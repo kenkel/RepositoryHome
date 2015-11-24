@@ -5,17 +5,22 @@ import java.util.Scanner;
 import controllers.NoteBook;
 import exceptions.ContactAddProblem;
 import exceptions.ContactDeleteProblem;
+import exceptions.ContactEditProblem;
+import interfaces.IavailableMenuActions;
 import modelEntityes.Contact;
 import modelEntityes.Controls;
 
 public class Menu {
 	
 	private boolean MenuOff = false;
-	private final NoteBook notebook = new NoteBook();
+	//private final NoteBook notebook = new NoteBook();  if you architecture is bad
+	private IavailableMenuActions menuActions;
 	
 	
 	
-	
+	public Menu(IavailableMenuActions menuActions){
+		this.menuActions = menuActions;
+	}
 	public void runMenu () {
 		
 		ViewMessagesSystem.GREETING_MESSAGE.printMessage();
@@ -27,45 +32,54 @@ public class Menu {
 			
 			if(Controls.add.getComand().equals(comandfromUser)){
 				try{
-				notebook.addContact(readContactToAdd());
-				ViewMessagesSystem.ADDED_SUCESFULLY.printMessage();
-				}catch(ContactAddProblem e){
-					e.showProblemMessage();
-					continue;
-				//	System.out.println("in catch block!!!");
-					
-					// what next ???
-					// logging exeption
-				}
+						menuActions.addContact(readContactToAdd());
+					 //	if you architecture is bad notebook.addContact(readContactToAdd());
+						ViewMessagesSystem.ADDED_SUCESFULLY.printMessage();
+					}catch(ContactAddProblem e){
+						e.showProblemMessage();
+						continue;
+					}
 			
-				
 			}else
 				if(Controls.delete.getComand().equals(comandfromUser)){
 					try{
-						notebook.deleteContact(readContactToDelete());
-						ViewMessagesSystem.DELETED_SUCESFULLY.printMessage();
-					}catch (ContactDeleteProblem e){
-						e.showProblemMessage();
-					}
+							menuActions.deleteContact(readContactToDelete());
+							//if you architecture is bad notebook.deleteContact(readContactToDelete());
+							ViewMessagesSystem.DELETED_SUCESFULLY.printMessage();
+						}catch (ContactDeleteProblem e){
+							e.showProblemMessage();
+							continue;
+						}
 			}else
 				if(Controls.edit.getComand().equals(comandfromUser)){
+					
 					ViewMessagesSystem.PLEASE_SET_CONTACT_TO_EDIT.printMessage();
 					String nameToEdit = readData();
 					ViewMessagesSystem.PLEASE_ADD_NAME.printMessage();
 					String newName = readData();
 					ViewMessagesSystem.PLEASE_ADD_NUMBER.printMessage();
 					String newNumber = readData();
-					notebook.editContact(nameToEdit, newName, newNumber);
-					ViewMessagesSystem.ADDED_SUCESFULLY.printMessage(); // if previous does not work ?
+					try{
+						menuActions.editContact(nameToEdit,newName,newNumber);
+					//	notebook.editContact(nameToEdit, newName, newNumber);
+						ViewMessagesSystem.ADDED_SUCESFULLY.printMessage(); // if previous does not work ?
+					}catch (ContactEditProblem e){
+						e.showProblemMessage();
+						continue;
+					}catch (ContactAddProblem e) {
+						 e.showProblemMessage();
+						e.printStackTrace();
+					}
 			
 			}else
 				if(Controls.off.getComand().equals(comandfromUser)){
+				 //	menuActions.menuOff();
 					MenuOff = true;
 					ViewMessagesSystem.GOODBYE.printMessage();
 			}else	
 				if(Controls.showAll.getComand().equals(comandfromUser)){
 					ViewMessagesSystem.SYSTEM_SEPARTOR.printMessage();
-					notebook.viewContacts();
+					menuActions.viewContacts();
 			
 			}
 			else{
@@ -75,12 +89,14 @@ public class Menu {
 		}
 		
 	}
+	public void setMenuOff(boolean a){
+		this.MenuOff = a;
+	}
 	private String readData() {
 		final Scanner scanner = new Scanner(System.in);
 		String res = scanner.next();
 		return res;
 	}
-	
 	private void startUpMenuMessage () {
 			ViewMessagesSystem.SYSTEM_SEPARTOR.printMessage();
 			ViewMessagesSystem.STARTUP_MESSAGE.printMessage();

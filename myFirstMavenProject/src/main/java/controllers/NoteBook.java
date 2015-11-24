@@ -1,23 +1,26 @@
 package controllers;
 
 import java.util.ArrayList;
-
 import exceptions.ContactAddProblem;
 import exceptions.ContactDeleteProblem;
+import exceptions.ContactEditProblem;
+import interfaces.IavailableMenuActions;
 import viewer.ViewNoteBookData;
 import modelEntityes.Contact;
 import viewer.Menu;
 import viewer.ViewMessagesSystem;
 
 
-public class NoteBook {
+
+public class NoteBook implements IavailableMenuActions{
 	
 	private final  ArrayList<Contact> contactsList = new ArrayList<Contact>();
 	
+	
 	public static void main(String[]args) throws ContactAddProblem {
 	
-		Menu dataFromUser = new Menu();
-		dataFromUser.runMenu();;
+		Menu dataFromUser = new Menu(new NoteBook());
+		dataFromUser.runMenu();
 		
 		
 	}
@@ -39,35 +42,39 @@ public class NoteBook {
 			 }
 		 }
 	}
-	public void editContact(final String nameContact,final String newNAme,final String newNumber){
-		if(contactsExist(nameContact) && newNAme!=null && newNumber!=null ){
-			for(int i = 0; i<contactsList.size();i++){
-				if(contactsList.get(i).getName().equals(nameContact)){
-					contactsList.get(i).setName(newNAme);
-					contactsList.get(i).setNumber(newNumber);
+	public void editContact(String nameContact,String newName,String newNumber) throws ContactEditProblem,ContactAddProblem{
+		if(nameContact !=null 
+			&& newName!=null 
+			&& newNumber!=null 
+			&& contactReturnForName(nameContact)!=null){
+			Contact contactNew = contactReturnForName(nameContact);
+			contactNew.setName(newName);
+			contactNew.setNumber(newNumber);
+			
+		}else{
+			throw new ContactEditProblem();
+		}
+	}
+	private Contact contactReturnForName(String nameContact) throws ContactEditProblem {
+		if(nameContact!=null){
+			for(int i=0;i<contactsList.size();i++){
+				if(nameContact.equals(contactsList.get(i).getName())){
+					return contactsList.get(i);
+				}else{
+					ViewMessagesSystem.NOTHING_TO_EDIT.printMessage();
 				}
 			}
-		}else{
-			ViewMessagesSystem.IF_INCORRECT.printMessage(); //throw new ContactCantEditException
-			return;
 		}
+	
+		return null;
+	
 	}
 	public void viewContacts(){
 		ViewNoteBookData.viewContacts(contactsList);
 	}
-	private boolean contactsExist(final String nameToAdd) {
-		if(nameToAdd!=null){
-		for(Contact contact : contactsList ){
-			if(nameToAdd.equals(contact.getName())){
-				return true;
-				}
-				
-			}
-		}
-		return false;
-	}
 	
-	//  do not enter the separator " ";
+
+	
 
 
 
