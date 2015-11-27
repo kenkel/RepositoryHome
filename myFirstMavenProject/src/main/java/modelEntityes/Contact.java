@@ -18,7 +18,6 @@ public class Contact {
 		this.name = name;
 		this.number = number;
 		}else{
-			//ViewMessagesSystem.IF_INCORRECT.printMessage();
 			throw new ContactAddProblem();
 		}
 	}

@@ -4,13 +4,16 @@ import interfaces.IdekorationMenuTem;
 
 public class DekoratorMenu implements IdekorationMenuTem {
 	
+	private final char systemDekoratorChar;
 	private final String greetingMessage = 
-	" ******* Hello! Well come to the project Notebook! Houpfully, you're enjoy it! ******** ";
-	private final char systemDekoratorChar = '*';
+	"******* Hello! Well come to the project Notebook! Houpfully, you're enjoy it! ********";
 	private final String seporatorStandart = "----------";
 	private int lengthGreetingMessage = greetingMessage.length();
 	private final String startUpMessage = "What comand do you want to execute ? ";
 	
+	public DekoratorMenu(char systemDekoratorChar){
+		this.systemDekoratorChar = systemDekoratorChar;
+	}
 	
 	public void printGreetingMessage() {
 		System.out.println(greetingMessage);

@@ -12,7 +12,7 @@ import modelEntityes.Contact;
 import viewer.ViewMessagesSystem;
 import viewer.ViewNoteBookData;
 
-public class Implemenation implements IavailableNotebookAction {
+public class NoteBookImplemenation implements IavailableNotebookAction {
 	
 	
 	private final  ArrayList<Contact> contactsList = new ArrayList<Contact>();

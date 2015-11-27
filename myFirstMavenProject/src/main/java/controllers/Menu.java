@@ -18,10 +18,17 @@ import viewer.ViewNoteBookData;
 		private boolean MenuOff = false;
 		private IavailableNotebookAction noteBookAction;	
 		private IdekorationMenuTem dekorationMenu;
-
+	
+	
 	public Menu(IavailableNotebookAction noteBookAction,IdekorationMenuTem dekorationMenu){
-		this.noteBookAction = noteBookAction;
+		notebookImplementation(noteBookAction);
 		this.dekorationMenu = dekorationMenu;
+	}
+	/*
+	 *  is it correct ? 
+	 */
+	public void notebookImplementation(IavailableNotebookAction menuActions){
+		this.noteBookAction = menuActions;
 	}
 	public void runMenu () {
 
@@ -103,6 +110,10 @@ import viewer.ViewNoteBookData;
 		String res = scanner.next();
 		return res;
 	}
+	
+	 
+	// try to reorganize downstairs methods : 
+	 
 	private Contact readContactToAdd () throws ContactAddProblem{  // working
 		ViewMessagesSystem.PLEASE_ADD_NAME.printMessage();
 		String name = readData();

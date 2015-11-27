@@ -2,7 +2,6 @@ package modelEntityes;
 
 import java.util.Arrays;
 
-
 public enum Controls {
 	add("add"),delete("delete"),edit("edit"),off("off"),showAll("showAll");
 	
@@ -17,5 +16,6 @@ public enum Controls {
 	public String getAllControls(){
 		return Arrays.toString(Controls.values());
 	}
+
 
 }
